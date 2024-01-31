@@ -15,9 +15,7 @@ is a web application that displays a calendar with special days, allowing users 
 
 ## APIs
 ### Calendarific API
-Visit Calendarific to obtain your API key.
-Add the API key to the .env file.
+To show special days
 
 ### Wikipedia API
-No specific API key is required for the Wikipedia API.
-The Wikipedia API URL is already configured, but you can modify it if needed.
+To show information about special days
