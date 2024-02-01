@@ -4,7 +4,7 @@ is a web application that displays a calendar with special days, allowing users 
 https://mdtoy-dev.github.io/Project-1/
 
 ## Screenshots
-![wireframe](./wireframe.png)
+![wireframe](./assets/images/wireframe.png)
 
 ## Table of Contents
 - [Features](#features)
