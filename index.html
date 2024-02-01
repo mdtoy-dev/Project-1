@@ -22,6 +22,27 @@
 
     <main class="test">
 
+      <form class="input-form">
+        <div class="input-btn">
+          <button class="country-btn" data-bs-toggle="modal" data-bs-target="#countryModal">Choose country</button>
+        </div>
+        <div id="countryModal" class="modal fade" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="countryModelHeader">Please choose a country!</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div id="countyOptions" class="modal-body">
+					<div id="countryGrid" class="country-grid">
+						
+					</div>
+				</div>
+			</div>
+          </div>
+        </div>
+      </form>
+
     </main>
 
     <footer>
@@ -40,5 +61,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Internal Scripts -->
     <script src="./assets/js/script.js"></script>
+	<script src="./assets/js/input-btn.js"></script>
   </body>
 </html>
