@@ -10,13 +10,12 @@ fetch(queryURL)
         console.log(data);
     })
 
-// Code Block for the Wikipedia Query, commented because it is currently not working but pushed to branch in case we can debug it somehow
-    // var titles = "New_Year's_Day"
-    // var wikiQueryURL = `https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${titles}&formatversion=2`;
+    var titles = "New_Year's_Day"
+    var wikiQueryURL = `https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${titles}&origin=*&formatversion=2`;
 
-    // fetch(wikiQueryURL)
-    //     .then(function(response) {
-    //         return response.json();
-    //     }).then(function(data) {
-    //         console.log(data)
-    //     })
+    fetch(wikiQueryURL)
+        .then(function(response) {
+            return response.json();
+        }).then(function(data) {
+            console.log(data)
+        })
