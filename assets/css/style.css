@@ -1,11 +1,15 @@
 
+hr {
+    margin: .5rem 0;
+}
+
 .country-grid {
-    display: flex;
+    display: block;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-fieldset button{
+#countryGrid button{
     text-align: left;
     border: none;
     width: 30%;
