@@ -1,0 +1,17 @@
+hr {
+    margin: .5rem 0;
+}
+
+.country-grid {
+    display: block;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#countryGrid button{
+    text-align: left;
+    border: none;
+    width: 30%;
+    margin: 2px;
+    padding: 5px 5px;
+}

@@ -20,7 +20,6 @@ function clickEvent(index, description) {
   var clickedId = "p" + index;
   var pClicked = document.getElementById(clickedId);
   pDescription.textContent = description;
-}
 
 fetch(queryURL)
   .then(function (response) {
