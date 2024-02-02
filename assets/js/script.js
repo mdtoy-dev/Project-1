@@ -57,7 +57,7 @@ fetch(queryURL)
     }
   });
 
-var titles = "New_Year's_Day";
+var titles = "Christmas_Day";
 var wikiQueryURL = `https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${titles}&origin=*&formatversion=2`;
 
 fetch(wikiQueryURL)
@@ -67,15 +67,19 @@ fetch(wikiQueryURL)
         var wiki = data.parse;
         console.log(wiki);
         var mainEl = $("main");
-            var articleEL = $("<article>");
-                articleEL.addClass("holidayBox");
-                var titleEl = $("<h3>");
-                    var anchorEl = $("<a>");
-                        anchorEl.attr("href", `https://en.wikipedia.org/wiki/${wiki.title}`);
-                        anchorEl.text(wiki.title);
-                        anchorEl.addClass("wikiURL");
-                    titleEl.append(anchorEl);
-                    titleEl.addClass("holidayName");
-            articleEL.append(titleEl);
-        mainEl.append(articleEL);
+          var articleEL = $("<article>");
+            articleEL.addClass("holidayBox");
+              var titleEl = $("<h3>");
+                  var anchorEl = $("<a>");
+                    anchorEl.attr("href", `https://en.wikipedia.org/wiki/${wiki.title}`);
+                    anchorEl.text(wiki.title);
+                    anchorEl.addClass("wikiURL");
+                  titleEl.append(anchorEl);                  
+                titleEl.addClass("holidayName");
+              articleEL.append(titleEl);
+              var descEl = $("<p>");
+                descEl.text(wiki.properties["wikibase-shortdesc"])
+                descEl.addClass("shortDesc")
+              articleEL.append(descEl)
+          mainEl.append(articleEL);
     });
