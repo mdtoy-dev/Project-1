@@ -93,10 +93,11 @@ fetch(queryURL2)
     //define description p element and set id and class attributes
     var pDescription = document.createElement("p");
     pDescription.setAttribute("id", "infoDescription");
-    pDescription.setAttribute("class", "ms-auto my-2 me-2");
+    pDescription.setAttribute("class", "ms-auto my-2 me-2 text-white");
     var main = document.querySelector(".test");
+    var specialDay = document.getElementById("special-day");
     //add description p element to main
-    main.appendChild(pDescription);
+    specialDay.appendChild(pDescription);
     var holidays = data.response.holidays;
     //create holiday name p tags and assign clickEvent function on click within for loop
     for (let i = 0; i < holidays.length; i++) {
