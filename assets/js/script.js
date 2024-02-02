@@ -20,6 +20,7 @@ function clickEvent(index, description) {
   var clickedId = "p" + index;
   var pClicked = document.getElementById(clickedId);
   pDescription.textContent = description;
+}
 
 fetch(queryURL)
   .then(function (response) {
@@ -63,18 +64,18 @@ fetch(wikiQueryURL)
     .then(function(response) {
         return response.json();
     }).then(function(data) {
-        var wiki = data.parse
-        console.log(wiki)
-        var mainEl = $("main")
-            var articleEL = $("<article>")
-                articleEL.addClass("holidayBox")
-                var titleEl = $("<h3>")
-                    var anchorEl = $("<a>")
-                        anchorEl.attr("href", `https://en.wikipedia.org/wiki/${wiki.title}`)
-                        anchorEl.text(wiki.title)
-                        anchorEl.addClass("wikiURL")
-                    titleEl.append(anchorEl)
-                    titleEl.addClass("holidayName")
-            articleEL.append(titleEl)
-        mainEl.append(articleEL)
-    }) 
+        var wiki = data.parse;
+        console.log(wiki);
+        var mainEl = $("main");
+            var articleEL = $("<article>");
+                articleEL.addClass("holidayBox");
+                var titleEl = $("<h3>");
+                    var anchorEl = $("<a>");
+                        anchorEl.attr("href", `https://en.wikipedia.org/wiki/${wiki.title}`);
+                        anchorEl.text(wiki.title);
+                        anchorEl.addClass("wikiURL");
+                    titleEl.append(anchorEl);
+                    titleEl.addClass("holidayName");
+            articleEL.append(titleEl);
+        mainEl.append(articleEL);
+    });
