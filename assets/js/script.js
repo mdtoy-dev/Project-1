@@ -1,9 +1,71 @@
-var apikey = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
+// fetch countries and flags.
+// let apiKey1 = 'IZ3Jet89Cn5Z6VkL7lFYgkqB7TJ4XM9h'
+let apiKey1 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
+
+let queryURL1 = `https://calendarific.com/api/v2/countries?api_key=${apiKey1}`;
+
+fetch(queryURL1)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    $("#countryGrid").empty();
+    var alphabet = [..."abcdefghijklmnopqrstuvwyz".toUpperCase()];
+    for (var i = 0; i < alphabet.length; i++) {
+      $("#countryGrid").append(
+        $("<div>")
+          .addClass("country-items")
+          .append(
+            $("<h4>").addClass(`header-${alphabet[i]}`).text(alphabet[i]),
+            $("<div>")
+              .addClass(`country-alphabet`)
+              .attr({
+                id: `country-${alphabet[i]}`,
+                "data-id": `${alphabet[i]}`,
+              }),
+            $("<hr>")
+          )
+      );
+    }
+
+    for (var i = 0; i < alphabet.length; i++) {
+      var getLetter = $(`#country-${alphabet[i]}`).attr("data-id");
+      for (var j = 0; j < data.response.countries.length; j++) {
+        var getCity = data.response.countries[j].country_name[0];
+        if (getLetter === getCity) {
+          $(`#country-${alphabet[i]}`).append(
+            $("<button>")
+              .addClass("country-btn")
+              .attr({ "data-bs-dismiss": "modal" })
+              .html(
+                `${`<img src="https://flagcdn.com/${data.response.countries[j][
+                  "iso-3166"
+                ].toLowerCase()}.svg" width="24" alt="${
+                  data.response.countries[j].country_name
+                }">`} ${data.response.countries[j].country_name}`
+              )
+          );
+        }
+      }
+    }
+  });
+
+// toggles country modal.
+$(".country-btn").on("click", function (event) {
+  event.preventDefault();
+});
+
+// response for countries button click.
+$(document).on("click", ".country-btn", function (event) {
+  event.preventDefault();
+});
+
+// var apiKey2 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
 var country = "GB";
 var year = 2024;
-var queryURL =
+var queryURL2 =
   "https://calendarific.com/api/v2/holidays?&api_key=" +
-  apikey +
+  apiKey1 +
   "&country=" +
   country +
   "&year=" +
@@ -22,7 +84,7 @@ function clickEvent(index, description) {
   pDescription.textContent = description;
 }
 
-fetch(queryURL)
+fetch(queryURL2)
   .then(function (response) {
     return response.json();
   })
@@ -56,26 +118,3 @@ fetch(queryURL)
       main.appendChild(pName);
     }
   });
-
-var titles = "New_Year's_Day";
-var wikiQueryURL = `https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${titles}&origin=*&formatversion=2`;
-
-fetch(wikiQueryURL)
-    .then(function(response) {
-        return response.json();
-    }).then(function(data) {
-        var wiki = data.parse;
-        console.log(wiki);
-        var mainEl = $("main");
-            var articleEL = $("<article>");
-                articleEL.addClass("holidayBox");
-                var titleEl = $("<h3>");
-                    var anchorEl = $("<a>");
-                        anchorEl.attr("href", `https://en.wikipedia.org/wiki/${wiki.title}`);
-                        anchorEl.text(wiki.title);
-                        anchorEl.addClass("wikiURL");
-                    titleEl.append(anchorEl);
-                    titleEl.addClass("holidayName");
-            articleEL.append(titleEl);
-        mainEl.append(articleEL);
-    });
