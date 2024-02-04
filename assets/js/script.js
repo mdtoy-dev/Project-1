@@ -104,7 +104,7 @@ var queryURL2 =
   "&year=" +
   year;
 
-console.log(queryURL2);
+// console.log(queryURL2);
 
 // function to run when special day is clicked
 function clickEvent(index, description) {
