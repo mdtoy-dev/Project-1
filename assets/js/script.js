@@ -74,9 +74,9 @@ var queryURL2 =
 // function to run when special day is clicked
 function clickEvent(index, description) {
   //log arguments
-  console.log("Clicked!");
-  console.log("index: " + index);
-  console.log("description: " + description);
+  // console.log("Clicked!");
+  // console.log("index: " + index);
+  // console.log("description: " + description);
   //update description p element with relevant description
   var pDescription = document.getElementById("infoDescription");
   var clickedId = "p" + index;
@@ -110,12 +110,44 @@ fetch(queryURL2)
       pName.setAttribute("id", idToSet);
       pName.textContent = holidayName;
       //pName is each p element with the holiday name as its text content
-      pName.onclick = function () {
-        //arguments are the index of the for loop used to find the id of the holiday name p element
-        //and the description to update the description p element with
-        clickEvent(i, holidayDescription);
-      };
+      // pName.onclick = function () {
+      //   //arguments are the index of the for loop used to find the id of the holiday name p element
+      //   //and the description to update the description p element with
+      //   clickEvent(i, holidayDescription);
+      // };
       //add holiday name p element to main
       main.appendChild(pName);
     }
+    var panelText = document.querySelector(".panel-text");
+    setInterval(function () {
+      var dayInstance = date;
+      var month = dayInstance.$M;
+      // console.log(dayInstance);
+      // console.log(currentDate);
+      //actively selected day is given the .active class in calendar.js
+      //get element that is actively selected and assign to variable
+      var selectedDay = document.querySelector(".active");
+      //if no day is selected clear the description p tag in info panel
+      if (selectedDay === null) {
+        pDescription.textContent = "";
+        return;
+      }
+      for (i = 0; i < holidays.length; i++) {
+        // get the holiday object
+        var dayObject = holidays[i];
+        //returns date object with numbers for day, month, year and assign to variable
+        var holidayDate = dayObject.date.datetime;
+        //gets actively selected day
+        var day = selectedDay.textContent;
+        // console.log(holidayDate.month);
+        // console.log(month);
+        // console.log(holidayDate.day);
+        // console.log(day);
+        if (holidayDate.month - 1 == month && holidayDate.day == day) {
+          // console.log("if is true");
+          // console.log(dayObject.description);
+          clickEvent(i, dayObject.description);
+        }
+      }
+    }, 500);
   });
