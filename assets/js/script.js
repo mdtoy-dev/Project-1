@@ -9,6 +9,7 @@ fetch(queryURL1)
     return response.json();
   })
   .then(function (data) {
+    console.log(data);
     $("#countryGrid").empty();
     var alphabet = [..."abcdefghijklmnopqrstuvwyz".toUpperCase()];
     for (var i = 0; i < alphabet.length; i++) {
@@ -33,10 +34,14 @@ fetch(queryURL1)
       for (var j = 0; j < data.response.countries.length; j++) {
         var getCity = data.response.countries[j].country_name[0];
         if (getLetter === getCity) {
+          // console.log(data.response.countries[j]["iso-3166"]);
           $(`#country-${alphabet[i]}`).append(
             $("<button>")
               .addClass("country-btn")
               .attr({ "data-bs-dismiss": "modal" })
+              .attr({
+                "data-countryCode": data.response.countries[j]["iso-3166"],
+              })
               .html(
                 `${`<img src="https://flagcdn.com/${data.response.countries[j][
                   "iso-3166"
@@ -50,19 +55,47 @@ fetch(queryURL1)
     }
   });
 
+var countryCode = "";
 // toggles country modal.
 $(".country-btn").on("click", function (event) {
   event.preventDefault();
+  localStorage.clear();
 });
 
 // response for countries button click.
 $(document).on("click", ".country-btn", function (event) {
   event.preventDefault();
+  var $button = $(this);
+  // console.log($button);
+  // console.log($button.textContent);
+  // console.log($button.attr("data-countryCode"));
+  countryCode = $button.attr("data-countryCode");
+  localStorage.setItem("countryCode", countryCode);
+  location.reload();
 });
 
 // var apiKey2 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
-var country = "GB";
-var year = 2024;
+var country = "";
+try {
+  var retrievedCountry = localStorage.getItem("countryCode");
+  country = retrievedCountry;
+  if (retrievedCountry === undefined || retrievedCountry === null) {
+    console.log("no country selected, defaulting to GB");
+    country = "GB";
+  }
+} catch (error) {
+  console.log(
+    "error: " +
+      error +
+      "\nin retrieving country code from local storage. Defaulting to GB"
+  );
+  country = "GB";
+}
+if (countryCode != "") {
+  country = countryCode;
+}
+
+var year = dayjs().format("YYYY");
 var queryURL2 =
   "https://calendarific.com/api/v2/holidays?&api_key=" +
   apiKey1 +
@@ -70,6 +103,8 @@ var queryURL2 =
   country +
   "&year=" +
   year;
+
+console.log(queryURL2);
 
 // function to run when special day is clicked
 function clickEvent(index, description) {
@@ -118,7 +153,6 @@ fetch(queryURL2)
     //   //add holiday name p element to main
     //   main.appendChild(pName);
     // }
-    var panelText = document.querySelector(".panel-text");
     setInterval(function () {
       var dayInstance = date;
       var month = dayInstance.$M;
