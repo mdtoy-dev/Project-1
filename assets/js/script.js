@@ -74,9 +74,9 @@ var queryURL2 =
 // function to run when special day is clicked
 function clickEvent(index, description) {
   //log arguments
-  console.log("Clicked!");
-  console.log("index: " + index);
-  console.log("description: " + description);
+  // console.log("Clicked!");
+  // console.log("index: " + index);
+  // console.log("description: " + description);
   //update description p element with relevant description
   var pDescription = document.getElementById("infoDescription");
   var clickedId = "p" + index;
@@ -93,30 +93,68 @@ fetch(queryURL2)
     //define description p element and set id and class attributes
     var pDescription = document.createElement("p");
     pDescription.setAttribute("id", "infoDescription");
-    pDescription.setAttribute("class", "ms-auto my-2 me-2");
+    pDescription.setAttribute("class", "ms-auto my-2 me-2 text-white");
     var main = document.querySelector(".test");
+    var specialDay = document.getElementById("special-day");
     //add description p element to main
-    main.appendChild(pDescription);
+    specialDay.appendChild(pDescription);
     var holidays = data.response.holidays;
     //create holiday name p tags and assign clickEvent function on click within for loop
-    for (let i = 0; i < holidays.length; i++) {
-      let dayObject = holidays[i];
-      var holidayName = dayObject.name;
-      let holidayDescription = dayObject.description;
-      var pName = document.createElement("p");
-      pName.setAttribute("class", "my-2 mx-2");
-      var idToSet = "p" + i.toString();
-      pName.setAttribute("id", idToSet);
-      pName.textContent = holidayName;
-      //pName is each p element with the holiday name as its text content
-      pName.onclick = function () {
-        //arguments are the index of the for loop used to find the id of the holiday name p element
-        //and the description to update the description p element with
-        clickEvent(i, holidayDescription);
-      };
-      //add holiday name p element to main
-      main.appendChild(pName);
-    }
+    // for (let i = 0; i < holidays.length; i++) {
+    //   let dayObject = holidays[i];
+    //   var holidayName = dayObject.name;
+    //   let holidayDescription = dayObject.description;
+    //   var pName = document.createElement("p");
+    //   pName.setAttribute("class", "my-2 mx-2");
+    //   var idToSet = "p" + i.toString();
+    //   pName.setAttribute("id", idToSet);
+    //   pName.textContent = holidayName;
+    //   //pName is each p element with the holiday name as its text content
+    //   // pName.onclick = function () {
+    //   //   //arguments are the index of the for loop used to find the id of the holiday name p element
+    //   //   //and the description to update the description p element with
+    //   //   clickEvent(i, holidayDescription);
+    //   // };
+    //   //add holiday name p element to main
+    //   main.appendChild(pName);
+    // }
+    var panelText = document.querySelector(".panel-text");
+    setInterval(function () {
+      var dayInstance = date;
+      var month = dayInstance.$M;
+      // console.log(dayInstance);
+      // console.log(currentDate);
+      //actively selected day is given the .active class in calendar.js
+      //get element that is actively selected and assign to variable
+      var selectedDay = document.querySelector(".active");
+      //if no day is selected clear the description p tag in info panel
+      if (selectedDay === null) {
+        pDescription.textContent = "";
+        return;
+      }
+      var holidayFound = false;
+      for (i = 0; i < holidays.length; i++) {
+        // get the holiday object
+        var dayObject = holidays[i];
+        //returns date object with numbers for day, month, year and assign to variable
+        var holidayDate = dayObject.date.datetime;
+        //gets actively selected day
+        var day = selectedDay.textContent;
+        // console.log(holidayDate.month);
+        // console.log(month);
+        // console.log(holidayDate.day);
+        // console.log(day);
+        if (holidayDate.month - 1 == month && holidayDate.day == day) {
+          // console.log("if is true");
+          // console.log(dayObject.description);
+          clickEvent(i, dayObject.description);
+          holidayFound = true;
+        }
+      }
+      if (holidayFound === false) {
+        pDescription.textContent = "";
+      }
+    }, 500);
   });
 
 var tmApiKey = "q0l21GRx9ZQLd56CEAfwDZM3CdeAJIv5";
