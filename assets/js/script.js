@@ -118,3 +118,15 @@ fetch(queryURL2)
       main.appendChild(pName);
     }
   });
+
+var tmApiKey = "q0l21GRx9ZQLd56CEAfwDZM3CdeAJIv5";
+var countryCode = "UK"
+var eventsURL = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${countryCode}&apikey=${tmApiKey}`;
+
+fetch(eventsURL)
+  .then(function(response) {
+    return response.json();
+  }).then(function(data) {
+    var events = data._embedded.events
+    console.log(events)
+  })
