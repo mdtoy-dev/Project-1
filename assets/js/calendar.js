@@ -60,4 +60,5 @@ function selectDay(selectedDay, newDay) {
   console.log(`Selected day: ${selectedDay}`);
   console.log(date);
   panelText.textContent = date;
+  eventAppend();
 }
