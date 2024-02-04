@@ -19,5 +19,5 @@ https://mdtoy-dev.github.io/Project-1/
 ### Calendarific API
 To show special days
 
-### Wikipedia API
-To show information about special days
+### Ticket Master API
+To add events the user might be interested in booking tickets for to the calendar.
