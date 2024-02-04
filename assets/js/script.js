@@ -1,6 +1,6 @@
 // fetch countries and flags.
 // let apiKey1 = 'IZ3Jet89Cn5Z6VkL7lFYgkqB7TJ4XM9h'
-let apiKey1 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
+let apiKey1 = "GZiM5Owb7C2IAkKQQ2iQFVGSBhVvr5Jc";
 
 let queryURL1 = `https://calendarific.com/api/v2/countries?api_key=${apiKey1}`;
 
@@ -96,8 +96,13 @@ fetch(queryURL2)
     pDescription.setAttribute("class", "ms-auto my-2 me-2 text-white");
     var main = document.querySelector(".test");
     var specialDay = document.getElementById("special-day");
+    // define event div for use in eventAppend function
+    var divEvent = document.createElement("div")
+    divEvent.setAttribute("id", "eventContainer")
+    divEvent.setAttribute("class", "panel-text text-light p-5")
     //add description p element to main
     specialDay.appendChild(pDescription);
+    specialDay.appendChild(divEvent)
     var holidays = data.response.holidays;
     //create holiday name p tags and assign clickEvent function on click within for loop
     // for (let i = 0; i < holidays.length; i++) {
@@ -161,7 +166,7 @@ function eventAppend() {
   // Ticketmaster Event API
   var tmApiKey = "q0l21GRx9ZQLd56CEAfwDZM3CdeAJIv5";
   // countryCode will need linking to output of the country modal
-  var countryCode = "UK";
+  var countryCode = "US";
   var eventsURL = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${countryCode}&apikey=${tmApiKey}`;
 
   fetch(eventsURL)
@@ -172,13 +177,23 @@ function eventAppend() {
       console.log(events);
       var selectedDay = document.querySelector(".active");
       var day = selectedDay.textContent;
-      console.log(day)
+      var eventEl = $("#eventContainer");
+        eventEl.empty();
+        var eventsTitleEl = $("<p>");
+          eventsTitleEl.text("Events");
+        eventEl.append(eventsTitleEl)
       for (let i = 0; i < events.length; i++) {
         if (dayjs(events[i].dates.start.localDate).format("D") === day) {
           // This alert is a test to make sure it works, will be replaced with element appends once it does
           console.log(events[i].name);
+          var allEventsEl = $("<p>");
+            var anchorEl = $("<a>");
+              anchorEl.attr("href", events[i].url)
+              anchorEl.text(events[i].name)
+              anchorEl.addClass("eventLink")
+            allEventsEl.append(anchorEl)
+          eventEl.append(allEventsEl)
         };
       };
     });
 };
-eventAppend();
