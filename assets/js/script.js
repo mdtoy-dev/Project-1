@@ -1,6 +1,7 @@
 // fetch countries and flags.
 // let apiKey1 = 'IZ3Jet89Cn5Z6VkL7lFYgkqB7TJ4XM9h'
-let apiKey1 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
+// let apiKey1 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
+let apiKey1 = "QoIZrcjv3ZXQkhAkDhVfp5ddYbJDo17o";
 
 let queryURL1 = `https://calendarific.com/api/v2/countries?api_key=${apiKey1}`;
 
@@ -68,7 +69,7 @@ $(document).on("click", ".country-btn", function (event) {
   var $button = $(this);
   // console.log($button);
   // console.log($button.textContent);
-  // console.log($button.attr("data-countryCode"));
+  console.log($button.attr("data-countryCode"));
   countryCode = $button.attr("data-countryCode");
   localStorage.setItem("countryCode", countryCode);
   location.reload();
@@ -76,14 +77,21 @@ $(document).on("click", ".country-btn", function (event) {
 
 // var apiKey2 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
 var country = "";
+console.log("trying to retrieve country from local storage");
 try {
+  console.log("try block");
   var retrievedCountry = localStorage.getItem("countryCode");
-  country = retrievedCountry;
-  if (retrievedCountry === undefined || retrievedCountry === null) {
-    console.log("no country selected, defaulting to GB");
+  //check if retrievedCountry is truthy
+  if (retrievedCountry) {
+    console.log("no country found in local storage, defaulting to GB");
     country = "GB";
+  } else {
+    console.log("country in local storage is found");
+    console.log(retrievedCountry);
+    country = retrievedCountry;
   }
 } catch (error) {
+  console.log("catch block");
   console.log(
     "error: " +
       error +
@@ -91,9 +99,11 @@ try {
   );
   country = "GB";
 }
-if (countryCode != "") {
-  country = countryCode;
-}
+
+// if (countryCode != "") {
+//   country = countryCode;
+// }
+console.log("country before query: " + country);
 
 var year = dayjs().format("YYYY");
 var queryURL2 =
@@ -167,7 +177,7 @@ fetch(queryURL2)
         return;
       }
       var holidayFound = false;
-      for (i = 0; i < holidays.length; i++) {
+      for (i = 0; i < data.response.holidays.length; i++) {
         // get the holiday object
         var dayObject = holidays[i];
         //returns date object with numbers for day, month, year and assign to variable
