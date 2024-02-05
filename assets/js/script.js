@@ -199,4 +199,25 @@ fetch(queryURL2)
         pDescription.textContent = "";
       }
     }, 500);
-  });
+    });
+
+
+        // Ticketmaster Event API
+        var tmApiKey = "q0l21GRx9ZQLd56CEAfwDZM3CdeAJIv5";
+        // countryCode will need linking to output of the country modal
+        var countryCode = "UK";
+        var eventsURL = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${countryCode}&apikey=${tmApiKey}`;
+    
+        fetch(eventsURL)
+          .then(function(response) {
+            return response.json();
+          }).then(function(data) {
+            var events = data._embedded.events;
+            console.log(events);
+            for (let i = 0; i < events.length; i++) {
+              if (events[i].dates.start.localDate === dayjs(/* Need the date from the selected date in the calendar */).format("YYYY-MM-DD")) {
+                // This alert is a test to make sure it works, will be replaced with element appends once it does
+                alert(events[i].name)
+              }
+            };
+          })
