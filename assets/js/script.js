@@ -38,6 +38,7 @@ fetch(queryURL1)
           // console.log(data.response.countries[j]["iso-3166"]);
           $(`#country-${alphabet[i]}`).append(
             $("<button>")
+              .addClass("country-btn-select")
               .addClass("country-btn")
               .attr({ "data-bs-dismiss": "modal" })
               .attr({
@@ -63,7 +64,7 @@ $(".country-btn").on("click", function (event) {
 });
 
 // response for countries button click.
-$(document).on("click", ".country-btn", function (event) {
+$(document).on("click", ".country-btn-select", function (event) {
   event.preventDefault();
   var $button = $(this);
   // console.log($button);
@@ -71,6 +72,11 @@ $(document).on("click", ".country-btn", function (event) {
   console.log($button.attr("data-countryCode"));
   countryCode = $button.attr("data-countryCode");
   localStorage.setItem("countryCode", countryCode);
+  location.reload();
+});
+
+$("#toggle-modal-btn").on("click", function () {
+  localStorage.clear();
 });
 
 // var apiKey2 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
