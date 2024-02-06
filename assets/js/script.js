@@ -4,109 +4,132 @@
 let apiKey1 = "QoIZrcjv3ZXQkhAkDhVfp5ddYbJDo17o";
 
 // response to clicking user input buttons.
-$(document).on('click', '.country-btn, .year-btn, .reset-btn, .update-btn', function(event) {
-	event.preventDefault();
-    var clickedEl = $(this).attr('class');
+$(document).on(
+  "click",
+  ".country-btn, .year-btn, .reset-btn, .update-btn",
+  function (event) {
+    event.preventDefault();
+    var clickedEl = $(this).attr("class");
     // response to year button click.
-	if (clickedEl === 'year-btn') {
-		var currYear = parseInt(dayjs().format('YYYY'));
-  		renderYears(currYear);
-    // response to reset button click.
-	} else if (clickedEl === 'reset-btn') {
-        resetInputs()
-    // response to update button click.
-    } else if (clickedEl === 'update-btn') {
-        // throws a feedback instruction if both country and year inputs hasn't been selected.
-        if ($('.country-btn').attr('value') === '' && $('.year-btn').attr('value') === '') {
-            $('#feedbackText').text('Please select a county and year to update the calender!');
-            clearFeedback();
-            return;
+    if (clickedEl === "year-btn") {
+      var currYear = parseInt(dayjs().format("YYYY"));
+      renderYears(currYear);
+      // response to reset button click.
+    } else if (clickedEl === "reset-btn") {
+      resetInputs();
+      // response to update button click.
+    } else if (clickedEl === "update-btn") {
+      // throws a feedback instruction if both country and year inputs hasn't been selected.
+      if (
+        $(".country-btn").attr("value") === "" &&
+        $(".year-btn").attr("value") === ""
+      ) {
+        $("#feedbackText").text(
+          "Please select a county and year to update the calender!"
+        );
+        clearFeedback();
+        return;
         // feedback instruction if country has not been selected.
-        } else if ($('.country-btn').attr('value') === '') {
-            $('#feedbackText').text('Please select a county!');
-            clearFeedback();
-            return;
+      } else if ($(".country-btn").attr("value") === "") {
+        $("#feedbackText").text("Please select a county!");
+        clearFeedback();
+        return;
         // feedback instruction if year has not been selected.
-        } else if ($('.year-btn').attr('value') === '') {
-            $('#feedbackText').text('Please select a year!');
-            clearFeedback();
-            return;
-        } else {
+      } else if ($(".year-btn").attr("value") === "") {
+        $("#feedbackText").text("Please select a year!");
+        clearFeedback();
+        return;
+      } else {
         // takes user input as arguments for api request.
-            var userCountry = $('#countryBtn').attr('value');
-            var userYear = $('.year-btn').attr('value');
-            console.log(userCountry, userYear)
-            resetInputs()
-        }
+        var userCountry = $("#countryBtn").attr("value");
+        var userYear = $(".year-btn").attr("value");
+        console.log(userCountry, userYear);
+        resetInputs();
+      }
     }
-});
+  }
+);
 
 // reset user inputs to original state.
 function resetInputs() {
-    $('.year-btn').attr('value', '').text('Choose a year');
-    $('.country-btn').attr('value', '').text('Choose a country');
+  $(".year-btn").attr("value", "").text("Choose a year");
+  $(".country-btn").attr("value", "").text("Choose a country");
 }
 
 // clears the feedback text.
 function clearFeedback() {
-    setTimeout(function() {
-        $("#feedbackText").text('');
-      }, 3000);
+  setTimeout(function () {
+    $("#feedbackText").text("");
+  }, 3000);
 }
 
 // switching to different decades.
-$(document).on('click', '.switch-btn', function(event) {
-	event.preventDefault();
-	var year = parseInt($('.year-option-btn').attr('value'));
-    var clickedEl = $(this).data('direction');
-	if (year <= 1949 && clickedEl === 'backward' || year >= 2024 && clickedEl === 'forward') {
-		return;
-	} else if (clickedEl === 'backward') {
-		renderYears(year - 25);
-        return;
-	} else if (clickedEl === 'forward') {
-		renderYears(year + 25);
-        return;
-	} else {
-		return;
-	}
-})
+$(document).on("click", ".switch-btn", function (event) {
+  event.preventDefault();
+  var year = parseInt($(".year-option-btn").attr("value"));
+  var clickedEl = $(this).data("direction");
+  if (
+    (year <= 1949 && clickedEl === "backward") ||
+    (year >= 2024 && clickedEl === "forward")
+  ) {
+    return;
+  } else if (clickedEl === "backward") {
+    renderYears(year - 25);
+    return;
+  } else if (clickedEl === "forward") {
+    renderYears(year + 25);
+    return;
+  } else {
+    return;
+  }
+});
 
 // renders the buttons of years for user to pick and decade text.
 function renderYears(year) {
   var numYears = 24;
-  $('#decadeText').text(`${year} - ${year + numYears}`)
-	$('#yearList').empty();
-	for (var i = 0; i <= numYears; i++) {
-		$('#yearList').append(
-			$('<li>')
-				.addClass('year-item')
-				.append(
-					$('<button>')
-						.addClass('year-option-btn')
-						.attr({id: `data-year-${year + i}`, value: year + i, "data-bs-dismiss": "modal"})
-						.text(year + i)
-				)
-				
-		)
-	}
+  $("#decadeText").text(`${year} - ${year + numYears}`);
+  $("#yearList").empty();
+  for (var i = 0; i <= numYears; i++) {
+    $("#yearList").append(
+      $("<li>")
+        .addClass("year-item")
+        .append(
+          $("<button>")
+            .addClass("year-option-btn")
+            .attr({
+              id: `data-year-${year + i}`,
+              value: year + i,
+              "data-bs-dismiss": "modal",
+            })
+            .text(year + i)
+        )
+    );
+  }
 }
 
 // response for countries and years options button click.
-$(document).on("click", '#country-option-btn, .year-option-btn', function (event) {
-	event.preventDefault();
-    var clickedCountry = $(this).attr('id');
-    var clickedYear =  $(this).attr('class');
-	if (clickedYear === 'year-option-btn') {
-        $('.year-btn').attr({value: $(this).attr('value')}).text(`Year: ${$(this).attr('value')}`)
-        return;
-	} else if (clickedCountry === 'country-option-btn') {
-        $('.country-btn').attr({value: $(this).attr('data-countryCode')}).text(`Country: ${$(this).attr('value')}`)
-        return;
-	} else {
-        return;
+$(document).on(
+  "click",
+  "#country-option-btn, .year-option-btn",
+  function (event) {
+    event.preventDefault();
+    var clickedCountry = $(this).attr("id");
+    var clickedYear = $(this).attr("class");
+    if (clickedYear === "year-option-btn") {
+      $(".year-btn")
+        .attr({ value: $(this).attr("value") })
+        .text(`Year: ${$(this).attr("value")}`);
+      return;
+    } else if (clickedCountry === "country-option-btn") {
+      $(".country-btn")
+        .attr({ value: $(this).attr("data-countryCode") })
+        .text(`Country: ${$(this).attr("value")}`);
+      return;
+    } else {
+      return;
+    }
   }
-});
+);
 
 // render countries and flags.
 let queryURL1 = `https://calendarific.com/api/v2/countries?api_key=${apiKey1}`;
@@ -144,9 +167,16 @@ fetch(queryURL1)
           $(`#country-${alphabet[i]}`).append(
             $("<button>")
               .addClass("country-btn-select")
-              .attr({"data-bs-dismiss": "modal", "data-countryCode": data.response.countries[j]["iso-3166"], value: data.response.countries[j].country_name, id: 'country-option-btn'})
+              .attr({
+                "data-bs-dismiss": "modal",
+                "data-countryCode": data.response.countries[j]["iso-3166"],
+                value: data.response.countries[j].country_name,
+                id: "country-option-btn",
+              })
               .html(
-                `${`<img src="https://flagcdn.com/${data.response.countries[j]["iso-3166"].toLowerCase()}.svg" width="24" alt="${
+                `${`<img src="https://flagcdn.com/${data.response.countries[j][
+                  "iso-3166"
+                ].toLowerCase()}.svg" width="24" alt="${
                   data.response.countries[j].country_name
                 }">`} ${data.response.countries[j].country_name}`
               )
@@ -180,7 +210,7 @@ try {
   console.log("try block");
   var retrievedCountry = localStorage.getItem("countryCode");
   //check if retrievedCountry is falsey
-  if (retrievedCountry == false) {
+  if (!retrievedCountry) {
     console.log("no country found in local storage, defaulting to GB");
     country = "GB";
   } else {
@@ -293,18 +323,20 @@ function eventAppend() {
       eventsTitleEl.text("Events");
       eventEl.append(eventsTitleEl);
       for (let i = 0; i < events.length; i++) {
-        if (dayjs(events[i].dates.start.localDate).format("YYYY-MM-DD") === day) {
+        if (
+          dayjs(events[i].dates.start.localDate).format("YYYY-MM-DD") === day
+        ) {
           // This alert is a test to make sure it works, will be replaced with element appends once it does
           console.log(events[i].name);
           var allEventsEl = $("<p>");
-            var anchorEl = $("<a>");
-              anchorEl.attr("href", events[i].url)
-              anchorEl.attr("target", "_blank")
-              anchorEl.text(events[i].name)
-              anchorEl.addClass("eventLink")
-            allEventsEl.append(anchorEl)
-          eventEl.append(allEventsEl)
-        };
-      };
+          var anchorEl = $("<a>");
+          anchorEl.attr("href", events[i].url);
+          anchorEl.attr("target", "_blank");
+          anchorEl.text(events[i].name);
+          anchorEl.addClass("eventLink");
+          allEventsEl.append(anchorEl);
+          eventEl.append(allEventsEl);
+        }
+      }
     });
 }
