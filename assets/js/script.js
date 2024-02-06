@@ -145,8 +145,13 @@ fetch(queryURL2)
     pDescription.setAttribute("class", "ms-auto my-2 me-2 text-white");
     var main = document.querySelector(".test");
     var specialDay = document.getElementById("special-day");
+    // define event div for use in eventAppend function
+    var divEvent = document.createElement("div")
+    divEvent.setAttribute("id", "eventContainer")
+    divEvent.setAttribute("class", "panel-text text-light p-5")
     //add description p element to main
     specialDay.appendChild(pDescription);
+    specialDay.appendChild(divEvent)
     var holidays = data.response.holidays;
     //create holiday name p tags and assign clickEvent function on click within for loop
     // for (let i = 0; i < holidays.length; i++) {
@@ -203,30 +208,40 @@ fetch(queryURL2)
         pDescription.textContent = "";
       }
     }, 500);
-  });
+    });
 
-// Ticketmaster Event API
-var tmApiKey = "q0l21GRx9ZQLd56CEAfwDZM3CdeAJIv5";
-// countryCode will need linking to output of the country modal
-var countryCode = "UK";
-var eventsURL = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${countryCode}&apikey=${tmApiKey}`;
+function eventAppend() {
+  // Ticketmaster Event API
+  var tmApiKey = "q0l21GRx9ZQLd56CEAfwDZM3CdeAJIv5";
+  // countryCode will need linking to output of the country modal
+  var countryCode = "US";
+  var eventsURL = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${countryCode}&apikey=${tmApiKey}`;
 
-fetch(eventsURL)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    var events = data._embedded.events;
-    console.log(events);
-    for (let i = 0; i < events.length; i++) {
-      if (
-        events[i].dates.start.localDate ===
-        dayjs(/* Need the date from the selected date in the calendar */).format(
-          "YYYY-MM-DD"
-        )
-      ) {
-        // This alert is a test to make sure it works, will be replaced with element appends once it does
-        alert(events[i].name);
-      }
-    }
-  });
+  fetch(eventsURL)
+    .then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      var events = data._embedded.events;
+      console.log(events);
+      var selectedDay = document.querySelector(".active");
+      var day = selectedDay.textContent;
+      var eventEl = $("#eventContainer");
+        eventEl.empty();
+        var eventsTitleEl = $("<p>");
+          eventsTitleEl.text("Events");
+        eventEl.append(eventsTitleEl)
+      for (let i = 0; i < events.length; i++) {
+        if (dayjs(events[i].dates.start.localDate).format("D") === day) {
+          // This alert is a test to make sure it works, will be replaced with element appends once it does
+          console.log(events[i].name);
+          var allEventsEl = $("<p>");
+            var anchorEl = $("<a>");
+              anchorEl.attr("href", events[i].url)
+              anchorEl.text(events[i].name)
+              anchorEl.addClass("eventLink")
+            allEventsEl.append(anchorEl)
+          eventEl.append(allEventsEl)
+        };
+      };
+    });
+};

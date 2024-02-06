@@ -1,10 +1,16 @@
+a {
+    color: inherit;
+}
+
 .days li {
     margin-bottom: 20px;
 }
 
 .side-panel {
-    height: 400px;
+    /* height: 400px; */
     width: 300px;
+    display: flex;
+    flex-direction: column;
 }
 
 .calendar ul li {
