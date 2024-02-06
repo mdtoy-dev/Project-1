@@ -54,6 +54,10 @@ i:hover {
 
 /* css for year options user input */
 
+.input-form button {
+    border: none;
+}
+
 .switch-year {
     display: flex;
     justify-content: center;
@@ -99,4 +103,3 @@ i:hover {
 .feedback-text {
     min-height: 25px;
 }
-

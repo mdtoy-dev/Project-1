@@ -33,7 +33,6 @@ $(document).on('click', '.country-btn, .year-btn, .reset-btn, .update-btn', func
             var userYear = $('.year-btn').attr('value');
             console.log(userCountry, userYear)
             resetInputs()
-            return;
         }
     }
 });
