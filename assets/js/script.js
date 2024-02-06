@@ -305,7 +305,7 @@ function eventAppend() {
   // Ticketmaster Event API
   var tmApiKey = "q0l21GRx9ZQLd56CEAfwDZM3CdeAJIv5";
   // countryCode will need linking to output of the country modal
-  var countryCode = "US";
+  var countryCode = $("#countryBtn").attr("value");
   var eventsURL = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${countryCode}&apikey=${tmApiKey}`;
 
   fetch(eventsURL)
