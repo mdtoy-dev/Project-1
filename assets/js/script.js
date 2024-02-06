@@ -104,8 +104,8 @@ $(document).on("click", '.country-option-btn, .year-option-btn', function (event
 });
 
 // render countries and flags.
-// apiKey1 = 'Okaf0L9aadr7gnB1eemtZUMfwYHfEgw9'
-// let queryURL1 = `https://calendarific.com/api/v2/countries?api_key=${apiKey1}`;
+apiKey1 = 'Okaf0L9aadr7gnB1eemtZUMfwYHfEgw9'
+let queryURL1 = `https://calendarific.com/api/v2/countries?api_key=${apiKey1}`;
 
 // generate buttons of countries for user to pick.
 fetch(queryURL1)
@@ -113,6 +113,7 @@ fetch(queryURL1)
     return response.json();
   })
   .then(function (data) {
+    console.log(data)
     $("#countryGrid").empty();
     var alphabet = [..."abcdefghijklmnopqrstuvwyz".toUpperCase()];
     for (var i = 0; i < alphabet.length; i++) {
