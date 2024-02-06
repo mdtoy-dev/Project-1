@@ -56,14 +56,9 @@ i:hover {
 .active::before {
     background: rgb(34,193,195);
     background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
-<<<<<<< HEAD
 }
 
 /* css for year options user input */
-
-.input-form button {
-    border: none;
-}
 
 .switch-year {
     display: flex;
@@ -110,6 +105,4 @@ i:hover {
 .feedback-text {
     min-height: 25px;
 }
-=======
-}
->>>>>>> 8e7702b7043d0145e53b8bb70a69224563c45fc6
+
