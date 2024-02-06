@@ -33,7 +33,7 @@ $(document).on('click', '.country-btn, .year-btn, .reset-btn, .update-btn', func
             return;
         } else {
         // takes user input as arguments for api request.
-            var userCountry = $('.country-btn').attr('value')
+            var userCountry = $('.country-btn').attr('data-countryCode')
             var userYear = $('.year-btn').attr('value');
             console.log(userCountry, userYear)
             resetInputs()
