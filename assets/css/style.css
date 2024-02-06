@@ -1,10 +1,16 @@
+a {
+    color: inherit;
+}
+
 .days li {
     margin-bottom: 20px;
 }
 
 .side-panel {
-    height: 400px;
+    /* height: 400px; */
     width: 300px;
+    display: flex;
+    flex-direction: column;
 }
 
 .calendar ul li {
@@ -50,6 +56,7 @@ i:hover {
 .active::before {
     background: rgb(34,193,195);
     background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+<<<<<<< HEAD
 }
 
 /* css for year options user input */
@@ -103,3 +110,6 @@ i:hover {
 .feedback-text {
     min-height: 25px;
 }
+=======
+}
+>>>>>>> 8e7702b7043d0145e53b8bb70a69224563c45fc6
