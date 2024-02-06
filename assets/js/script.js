@@ -223,20 +223,21 @@ function eventAppend() {
     }).then(function(data) {
       var events = data._embedded.events;
       console.log(events);
-      var selectedDay = document.querySelector(".active");
-      var day = selectedDay.textContent;
+      var selectedDay = document.querySelector(".panel-text");
+      var day = dayjs(selectedDay.textContent).format("YYYY-MM-DD");
       var eventEl = $("#eventContainer");
         eventEl.empty();
         var eventsTitleEl = $("<p>");
           eventsTitleEl.text("Events");
         eventEl.append(eventsTitleEl)
       for (let i = 0; i < events.length; i++) {
-        if (dayjs(events[i].dates.start.localDate).format("D") === day) {
+        if (dayjs(events[i].dates.start.localDate).format("YYYY-MM-DD") === day) {
           // This alert is a test to make sure it works, will be replaced with element appends once it does
           console.log(events[i].name);
           var allEventsEl = $("<p>");
             var anchorEl = $("<a>");
               anchorEl.attr("href", events[i].url)
+              anchorEl.attr("target", "_blank")
               anchorEl.text(events[i].name)
               anchorEl.addClass("eventLink")
             allEventsEl.append(anchorEl)
