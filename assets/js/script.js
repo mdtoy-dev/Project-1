@@ -1,6 +1,7 @@
 // fetch countries and flags.
 // let apiKey1 = 'IZ3Jet89Cn5Z6VkL7lFYgkqB7TJ4XM9h'
-let apiKey1 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
+// let apiKey1 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
+let apiKey1 = "QoIZrcjv3ZXQkhAkDhVfp5ddYbJDo17o";
 
 let queryURL1 = `https://calendarific.com/api/v2/countries?api_key=${apiKey1}`;
 
@@ -9,6 +10,7 @@ fetch(queryURL1)
     return response.json();
   })
   .then(function (data) {
+    console.log(data);
     $("#countryGrid").empty();
     var alphabet = [..."abcdefghijklmnopqrstuvwyz".toUpperCase()];
     for (var i = 0; i < alphabet.length; i++) {
@@ -33,10 +35,15 @@ fetch(queryURL1)
       for (var j = 0; j < data.response.countries.length; j++) {
         var getCity = data.response.countries[j].country_name[0];
         if (getLetter === getCity) {
+          // console.log(data.response.countries[j]["iso-3166"]);
           $(`#country-${alphabet[i]}`).append(
             $("<button>")
+              .addClass("country-btn-select")
               .addClass("country-btn")
               .attr({ "data-bs-dismiss": "modal" })
+              .attr({
+                "data-countryCode": data.response.countries[j]["iso-3166"],
+              })
               .html(
                 `${`<img src="https://flagcdn.com/${data.response.countries[j][
                   "iso-3166"
@@ -50,19 +57,59 @@ fetch(queryURL1)
     }
   });
 
+var countryCode = "";
 // toggles country modal.
 $(".country-btn").on("click", function (event) {
   event.preventDefault();
 });
 
 // response for countries button click.
-$(document).on("click", ".country-btn", function (event) {
+$(document).on("click", ".country-btn-select", function (event) {
   event.preventDefault();
+  var $button = $(this);
+  // console.log($button);
+  // console.log($button.textContent);
+  console.log($button.attr("data-countryCode"));
+  countryCode = $button.attr("data-countryCode");
+  localStorage.setItem("countryCode", countryCode);
+  location.reload();
+});
+
+$("#toggle-modal-btn").on("click", function () {
+  localStorage.clear();
 });
 
 // var apiKey2 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
-var country = "GB";
-var year = 2024;
+var country = "";
+console.log("trying to retrieve country from local storage");
+try {
+  console.log("try block");
+  var retrievedCountry = localStorage.getItem("countryCode");
+  //check if retrievedCountry is truthy
+  if (retrievedCountry == false) {
+    console.log("no country found in local storage, defaulting to GB");
+    country = "GB";
+  } else {
+    console.log("country in local storage is found");
+    console.log(retrievedCountry);
+    country = retrievedCountry;
+  }
+} catch (error) {
+  console.log("catch block");
+  console.log(
+    "error: " +
+      error +
+      "\nin retrieving country code from local storage. Defaulting to GB"
+  );
+  country = "GB";
+}
+
+// if (countryCode != "") {
+//   country = countryCode;
+// }
+console.log("country before query: " + country);
+
+var year = dayjs().format("YYYY");
 var queryURL2 =
   "https://calendarific.com/api/v2/holidays?&api_key=" +
   apiKey1 +
@@ -70,6 +117,8 @@ var queryURL2 =
   country +
   "&year=" +
   year;
+
+// console.log(queryURL2);
 
 // function to run when special day is clicked
 function clickEvent(index, description) {
@@ -96,8 +145,13 @@ fetch(queryURL2)
     pDescription.setAttribute("class", "ms-auto my-2 me-2 text-white");
     var main = document.querySelector(".test");
     var specialDay = document.getElementById("special-day");
+    // define event div for use in eventAppend function
+    var divEvent = document.createElement("div")
+    divEvent.setAttribute("id", "eventContainer")
+    divEvent.setAttribute("class", "panel-text text-light p-5")
     //add description p element to main
     specialDay.appendChild(pDescription);
+    specialDay.appendChild(divEvent)
     var holidays = data.response.holidays;
     //create holiday name p tags and assign clickEvent function on click within for loop
     // for (let i = 0; i < holidays.length; i++) {
@@ -118,7 +172,6 @@ fetch(queryURL2)
     //   //add holiday name p element to main
     //   main.appendChild(pName);
     // }
-    var panelText = document.querySelector(".panel-text");
     setInterval(function () {
       var dayInstance = date;
       var month = dayInstance.$M;
@@ -133,7 +186,7 @@ fetch(queryURL2)
         return;
       }
       var holidayFound = false;
-      for (i = 0; i < holidays.length; i++) {
+      for (i = 0; i < data.response.holidays.length; i++) {
         // get the holiday object
         var dayObject = holidays[i];
         //returns date object with numbers for day, month, year and assign to variable
@@ -157,23 +210,38 @@ fetch(queryURL2)
     }, 500);
     });
 
+function eventAppend() {
+  // Ticketmaster Event API
+  var tmApiKey = "q0l21GRx9ZQLd56CEAfwDZM3CdeAJIv5";
+  // countryCode will need linking to output of the country modal
+  var countryCode = "US";
+  var eventsURL = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${countryCode}&apikey=${tmApiKey}`;
 
-        // Ticketmaster Event API
-        var tmApiKey = "q0l21GRx9ZQLd56CEAfwDZM3CdeAJIv5";
-        // countryCode will need linking to output of the country modal
-        var countryCode = "UK";
-        var eventsURL = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${countryCode}&apikey=${tmApiKey}`;
-    
-        fetch(eventsURL)
-          .then(function(response) {
-            return response.json();
-          }).then(function(data) {
-            var events = data._embedded.events;
-            console.log(events);
-            for (let i = 0; i < events.length; i++) {
-              if (events[i].dates.start.localDate === dayjs(/* Need the date from the selected date in the calendar */).format("YYYY-MM-DD")) {
-                // This alert is a test to make sure it works, will be replaced with element appends once it does
-                alert(events[i].name)
-              }
-            };
-          })
+  fetch(eventsURL)
+    .then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      var events = data._embedded.events;
+      console.log(events);
+      var selectedDay = document.querySelector(".active");
+      var day = selectedDay.textContent;
+      var eventEl = $("#eventContainer");
+        eventEl.empty();
+        var eventsTitleEl = $("<p>");
+          eventsTitleEl.text("Events");
+        eventEl.append(eventsTitleEl)
+      for (let i = 0; i < events.length; i++) {
+        if (dayjs(events[i].dates.start.localDate).format("D") === day) {
+          // This alert is a test to make sure it works, will be replaced with element appends once it does
+          console.log(events[i].name);
+          var allEventsEl = $("<p>");
+            var anchorEl = $("<a>");
+              anchorEl.attr("href", events[i].url)
+              anchorEl.text(events[i].name)
+              anchorEl.addClass("eventLink")
+            allEventsEl.append(anchorEl)
+          eventEl.append(allEventsEl)
+        };
+      };
+    });
+};
