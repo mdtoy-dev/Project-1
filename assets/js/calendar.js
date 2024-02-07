@@ -61,4 +61,6 @@ function selectDay(selectedDay, newDay) {
   console.log(date);
   panelText.textContent = date;
   eventAppend();
+  var bgNum = document.querySelector(".dayNum");
+  bgNum.textContent = selectedDay
 }

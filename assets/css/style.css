@@ -1,16 +1,40 @@
+body {
+    height: 100vh;
+    background-image: linear-gradient(135deg, rgb(191, 233, 193) 0%, rgb(191, 233, 193) 1%,rgb(194, 206, 183) 1%, rgb(194, 206, 183) 56%,rgb(197, 180, 173) 56%, rgb(197, 180, 173) 75%,rgb(201, 153, 163) 75%, rgb(201, 153, 163) 80%,rgb(204, 126, 152) 80%, rgb(204, 126, 152) 87%,rgb(207, 100, 142) 87%, rgb(207, 100, 142) 97%,rgb(210, 73, 132) 97%, rgb(210, 73, 132) 100%);
+}
+
+.calendar {
+    background: hsla(302, 100%, 54%, 0.05);
+    backdrop-filter: blur(30px);
+    margin: 0 auto;
+    min-width: 300px;
+}
+
+.dayNum {
+    color: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    font-size: 60vw;
+    line-height: 0;
+    top: 50%;
+    z-index: -999;
+}
+
 a {
     color: inherit;
 }
 
 .days li {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .side-panel {
     /* height: 400px; */
-    width: 300px;
-    display: flex;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
     flex-direction: column;
+    background: rgba(118, 168, 132, 0.3);
+    backdrop-filter: blur(10px);
 }
 
 .calendar ul li {
@@ -21,7 +45,7 @@ a {
 .days li {
     z-index: 1;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .inactive {
@@ -54,6 +78,18 @@ i:hover {
 } 
 
 .active::before {
-    background: rgb(34,193,195);
-    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+    /* background: rgb(34,193,195); */
+    background: linear-gradient(0deg, rgb(195, 34, 85) 0%, rgb(237, 205, 205) 100%);
+}
+
+#countryBtn {
+    font-size: 20px;
+    border: none;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+#countryBtn img {
+    margin: 0 0 3px 0;
 }
