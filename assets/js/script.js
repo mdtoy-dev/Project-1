@@ -1,8 +1,6 @@
 // fetch countries and flags.
-// let apiKey1 = 'IZ3Jet89Cn5Z6VkL7lFYgkqB7TJ4XM9h'
-// let apiKey1 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
 
-let calendarificAPI = "Okaf0L9aadr7gnB1eemtZUMfwYHfEgw9";
+let calendarificAPI = "GZiM5Owb7C2IAkKQQ2iQFVGSBhVvr5Jc";
 
 // response to clicking user input buttons.
 $(document).on('click', '.country-btn', function(event) {
@@ -67,13 +65,12 @@ fetch(queryURL1)
 });
 
 var countryCode = "";
-// var apiKey2 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
 var year = dayjs().format("YYYY");
 
 function eventAppend() {
+  $("#eventContainer").empty()
   // Ticketmaster Event API
   var tmApiKey = "q0l21GRx9ZQLd56CEAfwDZM3CdeAJIv5";
-  // countryCode will need linking to output of the country modal
   var countryCode = $("#countryBtn").attr("value");
   var eventsURL = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${countryCode}&apikey=${tmApiKey}`;
 
@@ -96,7 +93,6 @@ function eventAppend() {
         if (
           dayjs(events[i].dates.start.localDate).format("YYYY-MM-DD") === day
         ) {
-          // This alert is a test to make sure it works, will be replaced with element appends once it does
           console.log(events[i].name);
           var allEventsEl = $("<p>");
           var anchorEl = $("<a>");
@@ -109,7 +105,6 @@ function eventAppend() {
         }
       }
     });
-
 
   var specialDaysQuery =
   "https://calendarific.com/api/v2/holidays?&api_key=" +
