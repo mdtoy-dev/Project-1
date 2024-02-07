@@ -26,75 +26,25 @@
 
     <main class="test">
         
-    	<div class="d-block justify-content-center align-items-center my-2">
-            <form class="input-form container w-50 mt-4 p-2 border border-3 rounded-2">
-                <div class="country-year-container row mb-1">
-                    <div class="col">
-                        <div class="input-btn">
-                            <button id="countryBtn" class="country-btn" data-bs-toggle="modal" data-bs-target="#countryModal" value="">Choose a country</button>
-                        </div>
-                        <div id="countryModal" class="modal fade" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="countryModelHeader">Please choose a country!</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div id="countryOptions" class="modal-body">
-                                        <div id="countryGrid" class="country-grid"></div>
-                                    </div>
+    	<div class="d-block my-2">
+            <form class="input-form container d-flex justify-content-center w-25 p-2 border border-3 rounded-2">
+                <div class="country-container w-100">
+                    <div class="input-btn">
+                        <button id="countryBtn" class="country-btn" data-bs-toggle="modal" data-bs-target="#countryModal" value="">Choose a country</button>
+                    </div>
+                    <div id="countryModal" class="modal fade" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="countryModelHeader">Please choose a country!</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div id="countryOptions" class="modal-body">
+                                    <div id="countryGrid" class="country-grid"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="input-btn">
-                            <button id="yearBtn" class="year-btn" data-bs-toggle="modal" data-bs-target="#yearModal" value="">Choose a year</button>
-                        </div>
-                        <div id="yearModal" class="modal fade" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-m">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="yearModelHeader">Please choose a year!</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="switch-year">
-                                        <button id="switchBackward" class="switch-btn" data-direction="backward">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-                                                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-                                                </svg>
-                                        </button>
-                                        <div class="display-decade">
-                                            <span id="decadeText" class="decade-text"></span>
-                                        </div>
-                                        <button id="switchForward" class="switch-btn" data-direction="forward">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                                                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                                                </svg>
-                                        </button>
-                                    </div>
-                                    <div id="yearOptions" class="modal-body">
-                                        <ul id="yearList" class="year-list"></ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="reset-update-container row">
-                    <div class="col">
-                        <button id="resetBtn" class="reset-btn">
-                            Reset
-                        </button>
-                    </div>
-                    <div class="col">
-                        <button id='updateBtn' class="update-btn">
-                            Update
-                        </button>
-                    </div>
-                </div>
-                <div class="feedback text-center row my-1">
-                    <span id="feedbackText" class="feedback-text"></span>
                 </div>
             </form>
         </div>

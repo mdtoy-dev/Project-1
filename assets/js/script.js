@@ -1,139 +1,24 @@
 // fetch countries and flags.
 // let apiKey1 = 'IZ3Jet89Cn5Z6VkL7lFYgkqB7TJ4XM9h'
 // let apiKey1 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
-let apiKey1 = "QoIZrcjv3ZXQkhAkDhVfp5ddYbJDo17o";
+
+let apiKey1 = "Okaf0L9aadr7gnB1eemtZUMfwYHfEgw9";
 
 // response to clicking user input buttons.
-$(document).on(
-  "click",
-  ".country-btn, .year-btn, .reset-btn, .update-btn",
-  function (event) {
-    event.preventDefault();
-    var clickedEl = $(this).attr("class");
-    // response to year button click.
-    if (clickedEl === "year-btn") {
-      var currYear = parseInt(dayjs().format("YYYY"));
-      renderYears(currYear);
-      // response to reset button click.
-    } else if (clickedEl === "reset-btn") {
-      resetInputs();
-      // response to update button click.
-    } else if (clickedEl === "update-btn") {
-      // throws a feedback instruction if both country and year inputs hasn't been selected.
-      if (
-        $(".country-btn").attr("value") === "" &&
-        $(".year-btn").attr("value") === ""
-      ) {
-        $("#feedbackText").text(
-          "Please select a county and year to update the calender!"
-        );
-        clearFeedback();
-        return;
-        // feedback instruction if country has not been selected.
-      } else if ($(".country-btn").attr("value") === "") {
-        $("#feedbackText").text("Please select a county!");
-        clearFeedback();
-        return;
-        // feedback instruction if year has not been selected.
-      } else if ($(".year-btn").attr("value") === "") {
-        $("#feedbackText").text("Please select a year!");
-        clearFeedback();
-        return;
-      } else {
-        // takes user input as arguments for api request.
-        var userCountry = $("#countryBtn").attr("value");
-        var userYear = $(".year-btn").attr("value");
-        console.log(userCountry, userYear);
-        resetInputs();
-      }
-    }
-  }
-);
-
-// reset user inputs to original state.
-function resetInputs() {
-  $(".year-btn").attr("value", "").text("Choose a year");
-  $(".country-btn").attr("value", "").text("Choose a country");
-}
-
-// clears the feedback text.
-function clearFeedback() {
-  setTimeout(function () {
-    $("#feedbackText").text("");
-  }, 3000);
-}
-
-// switching to different decades.
-$(document).on("click", ".switch-btn", function (event) {
-  event.preventDefault();
-  var year = parseInt($(".year-option-btn").attr("value"));
-  var clickedEl = $(this).data("direction");
-  if (
-    (year <= 1949 && clickedEl === "backward") ||
-    (year >= 2024 && clickedEl === "forward")
-  ) {
-    return;
-  } else if (clickedEl === "backward") {
-    renderYears(year - 25);
-    return;
-  } else if (clickedEl === "forward") {
-    renderYears(year + 25);
-    return;
-  } else {
-    return;
-  }
+$(document).on('click', '.country-btn', function(event) {
+	event.preventDefault();
 });
 
-// renders the buttons of years for user to pick and decade text.
-function renderYears(year) {
-  var numYears = 24;
-  $("#decadeText").text(`${year} - ${year + numYears}`);
-  $("#yearList").empty();
-  for (var i = 0; i <= numYears; i++) {
-    $("#yearList").append(
-      $("<li>")
-        .addClass("year-item")
-        .append(
-          $("<button>")
-            .addClass("year-option-btn")
-            .attr({
-              id: `data-year-${year + i}`,
-              value: year + i,
-              "data-bs-dismiss": "modal",
-            })
-            .text(year + i)
-        )
-    );
-  }
-}
-
 // response for countries and years options button click.
-$(document).on(
-  "click",
-  "#country-option-btn, .year-option-btn",
-  function (event) {
+$(document).on("click", '#countryOptionBtn', async function(event) {
     event.preventDefault();
-    var clickedCountry = $(this).attr("id");
-    var clickedYear = $(this).attr("class");
-    if (clickedYear === "year-option-btn") {
-      $(".year-btn")
-        .attr({ value: $(this).attr("value") })
-        .text(`Year: ${$(this).attr("value")}`);
-      return;
-    } else if (clickedCountry === "country-option-btn") {
-      $(".country-btn")
-        .attr({ value: $(this).attr("data-countryCode") })
-        .text(`Country: ${$(this).attr("value")}`);
-      return;
-    } else {
-      return;
-    }
-  }
-);
+    $('.country-btn').attr({value: $(this).attr('data-countryCode')}).html(`${`<img src="https://flagcdn.com/${$(this).attr('data-countryCode').toLowerCase()}.svg" width="36" alt="${
+    $(this).attr('value')}">`} ${$(this).attr('value')}`)
+	
+});
 
-// render countries and flags.
+// render countries buttons with flags.
 let queryURL1 = `https://calendarific.com/api/v2/countries?api_key=${apiKey1}`;
-
 fetch(queryURL1)
   .then(function (response) {
     return response.json();
@@ -167,12 +52,7 @@ fetch(queryURL1)
           $(`#country-${alphabet[i]}`).append(
             $("<button>")
               .addClass("country-btn-select")
-              .attr({
-                "data-bs-dismiss": "modal",
-                "data-countryCode": data.response.countries[j]["iso-3166"],
-                value: data.response.countries[j].country_name,
-                id: "country-option-btn",
-              })
+              .attr({"data-bs-dismiss": "modal", "data-countryCode": data.response.countries[j]["iso-3166"], value: data.response.countries[j].country_name, id: 'countryOptionBtn'})
               .html(
                 `${`<img src="https://flagcdn.com/${data.response.countries[j][
                   "iso-3166"
@@ -184,7 +64,7 @@ fetch(queryURL1)
         }
       }
     }
-  });
+});
 
 var countryCode = "";
 
@@ -305,7 +185,7 @@ function eventAppend() {
   // Ticketmaster Event API
   var tmApiKey = "q0l21GRx9ZQLd56CEAfwDZM3CdeAJIv5";
   // countryCode will need linking to output of the country modal
-  var countryCode = $("#countryBtn").attr("value");
+  var countryCode = $("#countryOptionBtn").attr("data-countryCode");
   var eventsURL = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${countryCode}&apikey=${tmApiKey}`;
 
   fetch(eventsURL)
@@ -313,6 +193,7 @@ function eventAppend() {
       return response.json();
     })
     .then(function (data) {
+      console.log(countryCode)
       var events = data._embedded.events;
       console.log(events);
       var selectedDay = document.querySelector(".panel-text");
