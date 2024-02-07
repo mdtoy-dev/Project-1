@@ -36,7 +36,8 @@ https://mdtoy-dev.github.io/Project-1/
 - Holiday descriptions for selected day and location (when appropriate)
 - Various attractions displayed for selected day and location (when appropriate)
 - Responsive design for optimal user experience on various devices
-- minimalistic and sleek design
+- Minimalistic and sleek design
+- Note taking functionality
 
 ## APIs
 
