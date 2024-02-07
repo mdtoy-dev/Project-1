@@ -10,7 +10,7 @@ $(document).on('click', '.country-btn', function(event) {
 });
 
 // response for countries and years options button click.
-$(document).on("click", '#countryOptionBtn', async function(event) {
+$(document).on("click", '#countryBtn', async function(event) {
     event.preventDefault();
     $('.country-btn').attr({value: $(this).attr('data-countryCode')}).html(`${`<img src="https://flagcdn.com/${$(this).attr('data-countryCode').toLowerCase()}.svg" width="36" alt="${
     $(this).attr('value')}">`} ${$(this).attr('value')}`)
@@ -52,7 +52,7 @@ fetch(queryURL1)
           $(`#country-${alphabet[i]}`).append(
             $("<button>")
               .addClass("country-btn-select")
-              .attr({"data-bs-dismiss": "modal", "data-countryCode": data.response.countries[j]["iso-3166"], value: data.response.countries[j].country_name, id: 'countryOptionBtn'})
+              .attr({"data-bs-dismiss": "modal", "data-countryCode": data.response.countries[j]["iso-3166"], value: data.response.countries[j].country_name, id: 'countryBtn'})
               .html(
                 `${`<img src="https://flagcdn.com/${data.response.countries[j][
                   "iso-3166"
@@ -184,8 +184,7 @@ fetch(queryURL2)
 function eventAppend() {
   // Ticketmaster Event API
   var tmApiKey = "q0l21GRx9ZQLd56CEAfwDZM3CdeAJIv5";
-  // countryCode will need linking to output of the country modal
-  var countryCode = $("#countryOptionBtn").attr("data-countryCode");
+  var countryCode = $("#countryBtn").attr("data-countryCode");
   var eventsURL = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${countryCode}&apikey=${tmApiKey}`;
 
   fetch(eventsURL)
@@ -207,7 +206,6 @@ function eventAppend() {
         if (
           dayjs(events[i].dates.start.localDate).format("YYYY-MM-DD") === day
         ) {
-          // This alert is a test to make sure it works, will be replaced with element appends once it does
           console.log(events[i].name);
           var allEventsEl = $("<p>");
           var anchorEl = $("<a>");
