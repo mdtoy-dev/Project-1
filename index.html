@@ -18,10 +18,11 @@
     <!-- Internal Stylesheet -->
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="./assets/css/input-btn.css" />
-    <title>Project One</title>
+    <title>Traveler's Diary</title>
   </head>
 
   <body>
+    <div class="dayNum"></div>
     <header></header>
 
     <main class="test">
@@ -100,27 +101,29 @@
         </div>
 
       <div class="container d-flex align-items-center justify-content-center text-center">
-        <div class="calendar w-50 bg-success rounded p-3">
-          <div
-            class="calendar-header d-flex align-items-center justify-content-evenly"
-          >
-            <i id="left" class="fa fa-caret-square-o-left fs-1 mb-2"></i>
-            <p class="current-date fw-bold fs-1 mx-5"></p>
-            <i id="right" class="fa fa-caret-square-o-right fs-1 mb-2"></i>
-          </div>
-          <ul class="weeks d-flex flex-wrap list-unstyled fw-bold">
-            <li>Sun</li>
-            <li>Mon</li>
-            <li>Tue</li>
-            <li>Wed</li>
-            <li>Thu</li>
-            <li>Fri</li>
-            <li>Sat</li>
-          </ul>
-          <ul class="days d-flex flex-wrap list-unstyled"></ul>
-        </div>
-        <div id="special-day" class="side-panel border bg-dark">
-          <p class="panel-text text-light p-5">Special Day</p>
+        <div class="row">
+            <div class="calendar d-flex flex-column align-items-center w-50 rounded p-3 col-8">
+            <div
+                class="calendar-header d-flex align-items-center justify-content-evenly "
+            >
+                <i id="left" class="fa fa-caret-square-o-left fs-1 mb-2"></i>
+                <p class="current-date fw-bold fs-1 mx-5"></p>
+                <i id="right" class="fa fa-caret-square-o-right fs-1 mb-2"></i>
+            </div>
+            <ul class="weeks w-100 d-flex list-unstyled fw-bold">
+                <li>Sun</li>
+                <li>Mon</li>
+                <li>Tue</li>
+                <li>Wed</li>
+                <li>Thu</li>
+                <li>Fri</li>
+                <li>Sat</li>
+            </ul>
+            <ul class="days d-flex flex-wrap list-unstyled"></ul>
+            </div>
+            <div id="special-day" class="side-panel border rounded col-4">
+            <p class="panel-text text-light p-5">Special Day</p>
+            </div>
         </div>
       </div>
     </main>
