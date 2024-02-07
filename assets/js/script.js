@@ -9,18 +9,15 @@ $(document).on('click', '.country-btn', function(event) {
 });
 
 // response for countries and years options button click.
-$(document).on("click", '#country-option-btn', function (event) {
-	event.preventDefault();
-    var clickedCountry = $(this).attr('id');
-	if (clickedCountry === 'country-option-btn') {
-        $('.country-btn').attr({value: $(this).attr('data-countryCode')}).text(`Country: ${$(this).attr('value')}`)
-        return;
-	}
+$(document).on("click", '#countryOptionBtn', async function(event) {
+    event.preventDefault();
+    $('.country-btn').attr({value: $(this).attr('data-countryCode')}).html(`Country: ${`<img src="https://flagcdn.com/${$(this).attr('data-countryCode').toLowerCase()}.svg" width="24" alt="${
+    $(this).attr('value')}">`} ${$(this).attr('value')}`)
+	
 });
 
-// render countries and flags.
+// render countries buttons with flags.
 let queryURL1 = `https://calendarific.com/api/v2/countries?api_key=${apiKey1}`;
-
 fetch(queryURL1)
   .then(function (response) {
     return response.json();
@@ -54,7 +51,7 @@ fetch(queryURL1)
           $(`#country-${alphabet[i]}`).append(
             $("<button>")
               .addClass("country-btn-select")
-              .attr({"data-bs-dismiss": "modal", "data-countryCode": data.response.countries[j]["iso-3166"], value: data.response.countries[j].country_name, id: 'country-option-btn'})
+              .attr({"data-bs-dismiss": "modal", "data-countryCode": data.response.countries[j]["iso-3166"], value: data.response.countries[j].country_name, id: 'countryOptionBtn'})
               .html(
                 `${`<img src="https://flagcdn.com/${data.response.countries[j]["iso-3166"].toLowerCase()}.svg" width="24" alt="${
                   data.response.countries[j].country_name
@@ -64,8 +61,7 @@ fetch(queryURL1)
         }
       }
     }
-  });
-
+});
 // var countryCode = "";
 
 // // response for countries button click.
