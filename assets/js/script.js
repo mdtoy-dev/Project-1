@@ -1,6 +1,7 @@
 // fetch countries and flags.
 // let apiKey1 = 'IZ3Jet89Cn5Z6VkL7lFYgkqB7TJ4XM9h'
 // let apiKey1 = "XvFWChUAog5bDCASmYccuidsOvVPlSns";
+
 let apiKey1 = "Okaf0L9aadr7gnB1eemtZUMfwYHfEgw9";
 
 // response to clicking user input buttons.
@@ -11,7 +12,7 @@ $(document).on('click', '.country-btn', function(event) {
 // response for countries and years options button click.
 $(document).on("click", '#countryOptionBtn', async function(event) {
     event.preventDefault();
-    $('.country-btn').attr({value: $(this).attr('data-countryCode')}).html(`Country: ${`<img src="https://flagcdn.com/${$(this).attr('data-countryCode').toLowerCase()}.svg" width="24" alt="${
+    $('.country-btn').attr({value: $(this).attr('data-countryCode')}).html(`${`<img src="https://flagcdn.com/${$(this).attr('data-countryCode').toLowerCase()}.svg" width="36" alt="${
     $(this).attr('value')}">`} ${$(this).attr('value')}`)
 	
 });
@@ -64,6 +65,7 @@ fetch(queryURL1)
       }
     }
 });
+
 var countryCode = "";
 
 // response for countries button click.
@@ -183,7 +185,7 @@ function eventAppend() {
   // Ticketmaster Event API
   var tmApiKey = "q0l21GRx9ZQLd56CEAfwDZM3CdeAJIv5";
   // countryCode will need linking to output of the country modal
-  var countryCode = $("#countryBtn").attr("value");
+  var countryCode = $("#countryOptionBtn").attr("data-countryCode");
   var eventsURL = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=${countryCode}&apikey=${tmApiKey}`;
 
   fetch(eventsURL)
@@ -191,6 +193,7 @@ function eventAppend() {
       return response.json();
     })
     .then(function (data) {
+      console.log(countryCode)
       var events = data._embedded.events;
       console.log(events);
       var selectedDay = document.querySelector(".panel-text");
