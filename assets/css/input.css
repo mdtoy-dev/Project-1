@@ -1,0 +1,10 @@
+#input{
+    background-color: pink;
+}
+  
+  
+  .input ul li {
+    background: pink;
+    color: darkblue;
+    margin: 5px;
+  }
