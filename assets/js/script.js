@@ -1,6 +1,6 @@
 // fetch countries and flags.
 
-let calendarificAPI = "GZiM5Owb7C2IAkKQQ2iQFVGSBhVvr5Jc";
+let calendarificAPI = "60t7WfLRDHgTcXq9deFI5pBc7F34hBVs";
 
 // response to clicking user input buttons.
 $(document).on('click', '.country-btn', function(event) {

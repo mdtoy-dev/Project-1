@@ -1,10 +1,4 @@
 #input{
-    background-color: pink;
+    background-color: rgb(255, 192, 203, 0.3);
 }
   
-  
-  .input ul li {
-    background: pink;
-    color: darkblue;
-    margin: 5px;
-  }

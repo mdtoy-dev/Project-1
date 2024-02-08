@@ -1,8 +1,8 @@
-# Badass Days
+# Event Listener
 
 ## Description
 
-Badass Days is a web application that displays a calendar with special holidays and events, allowing users to explore and plan for holidays or trips, whether abroad or local. for each specific day if a holiday for the selected country matches that date, a brief description is displayed to the right of the calendar, along with recommended attractions. Additionally, a note taking functionality allows the user to record memories and plans on their journies.
+Event Listener is a web application that displays a calendar with special holidays and events, allowing users to explore and plan for holidays or trips, whether abroad or local. for each specific day if a holiday for the selected country matches that date, a brief description is displayed to the right of the calendar, along with recommended attractions. Additionally, a note taking functionality allows the user to record memories and plans on their journies.
 
 ## Table of Contents
 
@@ -18,13 +18,10 @@ https://mdtoy-dev.github.io/Project-1/
 
 ## Screenshots
 
-### Wireframe
-
-![wireframe](./assets/images/wireframe.png)
-
 ### Calendar Overview
 
 ![calendar overview](./assets/images/calendar-overview.png)
+![calendar overview mobile](./assets/images/calendar-overview-mobile.png)
 
 ### Country Selection
 
