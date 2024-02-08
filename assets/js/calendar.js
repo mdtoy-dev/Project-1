@@ -59,7 +59,7 @@ function selectDay(selectedDay, newDay) {
   newDay.classList.add("active");
   console.log(`Selected day: ${selectedDay}`);
   console.log(date);
-  panelText.textContent = date;
+  panelText.textContent = date.format("DD MMMM YYYY");
   eventAppend();
   var bgNum = document.querySelector(".dayNum");
   bgNum.textContent = selectedDay

@@ -18,10 +18,11 @@
     <!-- Internal Stylesheet -->
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="./assets/css/input-btn.css" />
+    <link rel="stylesheet" href="./assets/css/input.css">
     <title>Traveler's Diary</title>
   </head>
 
-  <body>
+  <body class="text-center">
     <div class="dayNum"></div>
     <header></header>
 
@@ -79,21 +80,12 @@
         </div>
       </div>
     </main>
-    <input type="text" id="input" style="display: none;">
-   <h1>Notes</h1>
-    
-    <ul>
-      <li id="noteValue"></li>
-      <li></li>
-      <li></li>
-    </ul>
-    
-    
-    
-
-    </ul>
-  </input>
-
+    <div class="input">
+      <h1>Notes</h1>
+      <input type="text" id="input" style="display: none;" class="form-control w-50 mx-auto mt-2">
+      <p id="noteValue" class="m-5"></p>
+    </div>
+ 
     <footer></footer>
 
     <!-- Bootstrap -->
