@@ -14,7 +14,7 @@ Event Listener is a web application that displays a calendar with special holida
 
 ## Deployed Application
 
-https://mdtoy-dev.github.io/Project-1/
+https://mdtoy-dev.github.io/travelersDiary/
 
 ## Screenshots
 
